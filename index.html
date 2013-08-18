@@ -40,6 +40,20 @@
             overflow-x: auto;
           }
 
+          .cm-tab {
+            display: inherit;
+          }
+
+          .alert-small {
+            padding: 2px 10px;
+            margin-bottom: inherit;
+          }
+
+          .sms-error {
+            color: #FF0000;
+            text-decoration: underline;
+          }
+
 
           /*
           .CodeMirror-code {
@@ -58,7 +72,7 @@
 
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
-    <body ng-app="sms">
+    <body ng-app="sms" ng-controller="SMSController">
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
@@ -77,40 +91,14 @@
         <div class="container">
 
             <div class="modal" style="position: relative; top: auto; left: auto; right: auto; margin: 0 auto 20px; z-index: 1; max-width: 100%;">
-              <div class="editable modal-body" ng-model="message"></div>
+              <textarea ui-codemirror="editorOptions" ab-sms-box class="modal-body" ng-model="message" ng-trim="false">Your message here...</textarea>
               <div class="modal-footer">
                 <div class="pull-left">
                     <button class="btn btn-small" type="button">GSM</button>
                     <button class="btn btn-small btn-primary" type="button">GSM extended</button>
                     <button class="btn btn-small" type="button">ISO-8859-1 (latin1)</button>
                     <button class="btn btn-small" type="button">USC-2</button>
-                </div>{{message}}
-                <div class="pull-right"><strong ab-sms-count ng-model="message"></strong></div>
-              </div>
-            </div>
-
-            <div class="modal" style="position: relative; top: auto; left: auto; right: auto; margin: 0 auto 20px; z-index: 1; max-width: 100%;">
-              <textarea id="codeeditor" class="modal-body" ng-model="message" ng-trim="false">Blah</textarea>
-              <div class="modal-footer">
-                <div class="pull-left">
-                    <button class="btn btn-small" type="button">GSM</button>
-                    <button class="btn btn-small btn-primary" type="button">GSM extended</button>
-                    <button class="btn btn-small" type="button">ISO-8859-1 (latin1)</button>
-                    <button class="btn btn-small" type="button">USC-2</button>
-                </div>{{message}}
-                <div class="pull-right"><strong ab-sms-count ng-model="message"></strong></div>
-              </div>
-            </div>
-
-            <div class="modal" style="position: relative; top: auto; left: auto; right: auto; margin: 0 auto 20px; z-index: 1; max-width: 100%;">
-              <ab-sms-box class="modal-body" ng-model="message" ng-trim="false"></ab-sms-box>
-              <div class="modal-footer">
-                <div class="pull-left">
-                    <button class="btn btn-small" type="button">GSM</button>
-                    <button class="btn btn-small btn-primary" type="button">GSM extended</button>
-                    <button class="btn btn-small" type="button">ISO-8859-1 (latin1)</button>
-                    <button class="btn btn-small" type="button">USC-2</button>
-                </div>{{message}}
+                </div>
                 <div class="pull-right"><strong ab-sms-count ng-model="message"></strong></div>
               </div>
             </div>
@@ -122,50 +110,12 @@
 
         </div> <!-- /container -->
 
-        <script type="text/javascript" src="js/vendor/tinymce/tinymce.min.js"></script>        
-        <script type="text/javascript" src="js/vendor/codemirror.js"></script>
-
-        <script type="text/javascript" src="js/vendor/jsHtmlToText.js"></script>
-        <script type="text/javascript">
-        tinymce.init({
-            selector: "div.editable",
-            plugins: 'paste',
-            inline: true,
-            menubar: false,
-            toolbar: false,
-
-            paste_auto_cleanup_on_paste : true,
-            paste_remove_styles: true,
-            paste_remove_styles_if_webkit: true,
-            paste_strip_class_attributes: true,
-            paste_text_sticky : true,
-
-            setup : function(editor) {
-              editor.pasteAsPlainText = true;
-              editor.on('keyup', function(event) {
-                var t = htmlToText(editor.getContent());
-                console.log(t, '"');
-              });
-           }
-        });
-
-        var element = window.document.getElementById("codeeditor");
-        var editor = CodeMirror.fromTextArea(element, {
-          lineNumbers: false,
-          lineWrapping: true,
-          viewportMargin: Infinity,
-        });
-        editor.on("change", function(editor, changeObj) {
-          $scope.$apply(function(){
-            // perform any model changes or method invocations here on angular app.
-          });
-        });
-
-        </script>
-
         <script src="js/vendor/bootstrap-without-jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/1.3.1/lodash.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular.min.js"></script>
+
+        <script src="js/vendor/codemirror.js"></script>
+        <script src="js/vendor/ui-codemirror.js"></script>
 
         <script src="js/smscount.js"></script>
         <script src="js/main.js"></script>
