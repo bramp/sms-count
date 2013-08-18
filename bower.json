@@ -1,0 +1,13 @@
+// TODO Finish. Currently this doesn't quite work, due 
+// to "angular-ui-codemirror" depending on "angular" not "angular-latest".
+// We need a the concept of overrides, which is not yet supported
+{
+  "name" : "SMS Character Count",
+  "version": "1.0.0",
+  "dependencies": {
+  	"codemirror": "3.15",
+  	"angular-latest" : "latest",
+    "angular-ui-codemirror": "latest",
+    "lodash": "1.3.1"
+  }
+}

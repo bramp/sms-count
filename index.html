@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/codemirror.css">
+
+        <style>
+          body {
+            padding-top: 60px;
+            padding-bottom: 40px;
+          }
+
+          .modal {
+            width: 800px;
+          }
+
+          .CodeMirror {
+            border: 0px;
+            height: auto;
+            /*min-height: 60px;*/
+            margin: 15px;
+            font-family: inherit;
+            font-size: inherit;
+            color: inherit;
+            line-height: inherit;
+          }
+          .CodeMirror-scroll {
+            overflow-y: hidden;
+            overflow-x: auto;
+          }
+
+
+          /*
+          .CodeMirror-code {
+            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+            font-size: 14px;
+          }
+          .cm-s-sms .CodeMirror-selected { background: #253B76 !important; }
+          .cm-s-sms .CodeMirror-gutters { background: #0C1021; border-right: 0; }
+          .cm-s-sms .CodeMirror-linenumber { color: #888; }
+          .cm-s-sms .CodeMirror-cursor { border-left: 1px solid #A7A7A7 !important; }
+          */
+          
+          
+
+        </style>
+
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    </head>
+    <body ng-app="sms">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        <div class="navbar navbar-inverse navbar-fixed-top">
+
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="#"><strong>SMS Character Count</strong> by bramp</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+
+            <div class="modal" style="position: relative; top: auto; left: auto; right: auto; margin: 0 auto 20px; z-index: 1; max-width: 100%;">
+              <div class="editable modal-body" ng-model="message"></div>
+              <div class="modal-footer">
+                <div class="pull-left">
+                    <button class="btn btn-small" type="button">GSM</button>
+                    <button class="btn btn-small btn-primary" type="button">GSM extended</button>
+                    <button class="btn btn-small" type="button">ISO-8859-1 (latin1)</button>
+                    <button class="btn btn-small" type="button">USC-2</button>
+                </div>{{message}}
+                <div class="pull-right"><strong ab-sms-count ng-model="message"></strong></div>
+              </div>
+            </div>
+
+            <div class="modal" style="position: relative; top: auto; left: auto; right: auto; margin: 0 auto 20px; z-index: 1; max-width: 100%;">
+              <textarea id="codeeditor" class="modal-body" ng-model="message" ng-trim="false">Blah</textarea>
+              <div class="modal-footer">
+                <div class="pull-left">
+                    <button class="btn btn-small" type="button">GSM</button>
+                    <button class="btn btn-small btn-primary" type="button">GSM extended</button>
+                    <button class="btn btn-small" type="button">ISO-8859-1 (latin1)</button>
+                    <button class="btn btn-small" type="button">USC-2</button>
+                </div>{{message}}
+                <div class="pull-right"><strong ab-sms-count ng-model="message"></strong></div>
+              </div>
+            </div>
+
+            <div class="modal" style="position: relative; top: auto; left: auto; right: auto; margin: 0 auto 20px; z-index: 1; max-width: 100%;">
+              <ab-sms-box class="modal-body" ng-model="message" ng-trim="false"></ab-sms-box>
+              <div class="modal-footer">
+                <div class="pull-left">
+                    <button class="btn btn-small" type="button">GSM</button>
+                    <button class="btn btn-small btn-primary" type="button">GSM extended</button>
+                    <button class="btn btn-small" type="button">ISO-8859-1 (latin1)</button>
+                    <button class="btn btn-small" type="button">USC-2</button>
+                </div>{{message}}
+                <div class="pull-right"><strong ab-sms-count ng-model="message"></strong></div>
+              </div>
+            </div>
+
+            <footer>
+                <hr>
+                <p>&copy; <a href="http://bramp.net">bramp.net</a> 2013</p>
+            </footer>
+
+        </div> <!-- /container -->
+
+        <script type="text/javascript" src="js/vendor/tinymce/tinymce.min.js"></script>        
+        <script type="text/javascript" src="js/vendor/codemirror.js"></script>
+
+        <script type="text/javascript" src="js/vendor/jsHtmlToText.js"></script>
+        <script type="text/javascript">
+        tinymce.init({
+            selector: "div.editable",
+            plugins: 'paste',
+            inline: true,
+            menubar: false,
+            toolbar: false,
+
+            paste_auto_cleanup_on_paste : true,
+            paste_remove_styles: true,
+            paste_remove_styles_if_webkit: true,
+            paste_strip_class_attributes: true,
+            paste_text_sticky : true,
+
+            setup : function(editor) {
+              editor.pasteAsPlainText = true;
+              editor.on('keyup', function(event) {
+                var t = htmlToText(editor.getContent());
+                console.log(t, '"');
+              });
+           }
+        });
+
+        var element = window.document.getElementById("codeeditor");
+        var editor = CodeMirror.fromTextArea(element, {
+          lineNumbers: false,
+          lineWrapping: true,
+          viewportMargin: Infinity,
+        });
+        editor.on("change", function(editor, changeObj) {
+          $scope.$apply(function(){
+            // perform any model changes or method invocations here on angular app.
+          });
+        });
+
+        </script>
+
+        <script src="js/vendor/bootstrap-without-jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/1.3.1/lodash.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular.min.js"></script>
+
+        <script src="js/smscount.js"></script>
+        <script src="js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src='//www.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+    </body>
+</html>
