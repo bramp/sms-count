@@ -11,7 +11,6 @@
         <meta name="viewport" content="width=device-width">
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/codemirror.css">
 
@@ -25,10 +24,23 @@
             width: 800px;
           }
 
+          .modal-inplace {
+            position: relative;
+            top: auto;
+            left: auto;
+            right: auto;
+            margin: 0 auto 20px;
+            z-index: 1;
+            max-width: 100%;
+          }
+
+          .sms-modal {
+            min-width: 500px;
+          }
+
           .CodeMirror {
             border: 0px;
             height: auto;
-            /*min-height: 60px;*/
             margin: 15px;
             font-family: inherit;
             font-size: inherit;
@@ -53,22 +65,9 @@
             color: #FF0000;
             text-decoration: underline;
           }
-
-
-          /*
-          .CodeMirror-code {
-            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-            font-size: 14px;
-          }
-          .cm-s-sms .CodeMirror-selected { background: #253B76 !important; }
-          .cm-s-sms .CodeMirror-gutters { background: #0C1021; border-right: 0; }
-          .cm-s-sms .CodeMirror-linenumber { color: #888; }
-          .cm-s-sms .CodeMirror-cursor { border-left: 1px solid #A7A7A7 !important; }
-          */
-          
-          
-
         </style>
+
+        <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
 
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
@@ -77,10 +76,7 @@
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
 
-        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
-
         <div class="navbar navbar-inverse navbar-fixed-top">
-
             <div class="navbar-inner">
                 <div class="container">
                     <a class="brand" href="#"><strong>SMS Character Count</strong> by bramp</a>
@@ -90,16 +86,16 @@
 
         <div class="container">
 
-            <div class="modal" style="position: relative; top: auto; left: auto; right: auto; margin: 0 auto 20px; z-index: 1; max-width: 100%;">
-              <textarea ui-codemirror="editorOptions" ab-sms-box class="modal-body" ng-model="message" ng-trim="false">Your message here...</textarea>
+            <div class="modal modal-inplace sms-modal">
+              <textarea ui-codemirror="editorOptions" class="modal-body" ng-model="message" ng-trim="false">Your message here...</textarea>
               <div class="modal-footer">
                 <div class="pull-left">
-                    <button class="btn btn-small" type="button">GSM</button>
-                    <button class="btn btn-small btn-primary" type="button">GSM extended</button>
-                    <button class="btn btn-small" type="button">ISO-8859-1 (latin1)</button>
-                    <button class="btn btn-small" type="button">USC-2</button>
+                    <button ng-repeat="(key, value) in encodings"
+                      btn-radio="key"
+                      class="btn btn-small" type="button"
+                      ng-model="$parent.encoding">{{value.name}}</button>
                 </div>
-                <div class="pull-right"><strong ab-sms-count ng-model="message"></strong></div>
+                <div class="pull-right"><strong sms-count sms-encoding="{{encoding}}" ng-model="message"></strong></div>
               </div>
             </div>
 
@@ -111,12 +107,13 @@
         </div> <!-- /container -->
 
         <script src="js/vendor/bootstrap-without-jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/1.3.1/lodash.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular.min.js"></script>
+        <script src="js/vendor/ui-bootstrap-0.5.0.min.js"></script>
 
         <script src="js/vendor/codemirror.js"></script>
         <script src="js/vendor/ui-codemirror.js"></script>
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/1.3.1/lodash.min.js"></script>
         <script src="js/smscount.js"></script>
         <script src="js/main.js"></script>
 
