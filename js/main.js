@@ -91,7 +91,7 @@ var app = angular.module('sms', ['ui.bootstrap', 'ui.codemirror'])
 			require: 'ngModel',
 			template: 
 				'<div class="alert alert-small" ng-class="{\'alert-success\' : !error, \'alert-error\' : error}">' +
-					'{{est_remaining}}/{{segments}}' +
+					'{{est_remaining}} / {{segments}}' +
 				'</div>',
 
 			link: function (scope, element, attrs, ngModel) {
