@@ -15,20 +15,20 @@
     var gsm = "@£$¥èéùìòÇ\nØø\rÅåΔ_ΦΓΛΩΠΨΣΘΞÆæßÉ !\"#¤%&'()*+,-./0123456789:;<=>?¡ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÑÜ§¿abcdefghijklmnopqrstuvwxyzäöñüà";
     var gsm_extended = "^{}\[~]|€";
 
-    function is_gsm(char) {
-        return gsm.indexOf(char) !== -1;
+    function is_gsm(c) {
+        return gsm.indexOf(c) !== -1;
     }
 
-    function is_gsm_extended(char) {
-        return gsm_extended.indexOf(char) !== -1;
+    function is_gsm_extended(c) {
+        return gsm_extended.indexOf(c) !== -1;
     }
 
-    function is_ucs2(charCode) {
-        return charCode < 0xFFFF;
+    function is_ucs2(c) {
+        return c.charCodeAt(0) < 0xFFFF;
     }
 
-    function is_latin1(charCode) {
-        return charCode < 0xFF;
+    function is_latin1(c) {
+        return c.charCodeAt(0) < 0xFF;
     }
 
 	// Based on the byte length, how many SMS Segments would this be
@@ -87,7 +87,7 @@
 		var errors = [];
 
 		for (var i = 0; i < text.length; i++) {
-			var c = text.charCodeAt(i);
+            var c = text.charAt(i);
 			if (is_ucs2(c)) {
 				length += 16;
 			} else {
@@ -104,7 +104,7 @@
 		var errors = [];
 
 		for (var i = 0; i < text.length; i++) {
-			var c = text.charCodeAt(i);
+			var c = text.charAt(i);
 			if (is_latin1(c)) {
 				length += 8;
 			} else {

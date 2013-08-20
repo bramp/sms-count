@@ -55,7 +55,7 @@ var app = angular.module('sms', ['ui.bootstrap', 'ui.codemirror'])
 
 			var badChars = _.uniq(_.pluck(o.errors, 'char'));
 			if (badChars.length > 0) {
-				var regexp = new RegExp( "[" + RegExp.quote(badChars.join()) + "]+" , "g");
+				var regexp = new RegExp( "[" + RegExp.quote(badChars.join('')) + "]+" , "g");
 
 				// Runs everything in a single "transaction"
 				editor.operation(function() {
