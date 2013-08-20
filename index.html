@@ -15,6 +15,11 @@
         <link rel="stylesheet" href="css/codemirror.css">
 
         <style>
+
+          .ng-cloak {
+            display: none !important;
+          }
+
           body {
             padding-top: 60px;
             padding-bottom: 40px;
@@ -87,13 +92,15 @@
         <div class="container">
 
             <div class="modal modal-inplace sms-modal">
-              <textarea ui-codemirror="editorOptions" class="modal-body" ng-model="message" ng-trim="false">Your message here...</textarea>
+              <textarea ui-codemirror="editorOptions" class="modal-body ng-cloak" ng-model="message" ng-trim="false">Your message here...</textarea>
+
               <div class="modal-footer">
                 <div class="pull-left">
                     <button ng-repeat="(key, value) in encodings"
                       btn-radio="key"
                       class="btn btn-small" type="button"
-                      ng-model="$parent.encoding">{{value.name}}</button>
+                      ng-model="$parent.encoding"
+                      ng-bind="value.name"></button>
                 </div>
                 <div class="pull-right"><strong sms-count sms-encoding="{{encoding}}" ng-model="message"></strong></div>
               </div>
