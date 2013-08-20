@@ -13,7 +13,7 @@
 
     // 3GPP TS 23.038 / GSM 03.38
     var gsm = "@£$¥èéùìòÇ\nØø\rÅåΔ_ΦΓΛΩΠΨΣΘΞÆæßÉ !\"#¤%&'()*+,-./0123456789:;<=>?¡ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÑÜ§¿abcdefghijklmnopqrstuvwxyzäöñüà";
-    var gsm_extended = "^{}\[~]|€";
+    var gsm_extended = "^{}\\[~]|€";
 
     function is_gsm(c) {
         return gsm.indexOf(c) !== -1;
